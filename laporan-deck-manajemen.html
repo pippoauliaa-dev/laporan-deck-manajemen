@@ -99,7 +99,7 @@
     <h2>ASETA: lebih banyak klik dengan biaya lebih rendah</h2>
     <p class="dek">Januari–November · angka dalam Rupiah</p>
 
-    <div class="legend"><span><i style="background:var(--c25)"></i>2025</span><span><i style="background:var(--c26)"></i>2026</span></div>
+    <div class="legend"><span><i style="background:var(--c25)"></i>2025</span><span><i style="background:var(--c26)"></i>2026</span><span style="margin-left:auto">Jumlah klik per bulan · angka di atas batang = jumlah klik</span></div>
     <div class="chart">
       <svg viewBox="0 0 840 250" role="img" aria-label="Jumlah klik Meta per bulan, 2025 versus 2026">
         <g id="m-grid"></g><g id="m-bars"></g>
@@ -135,7 +135,7 @@
     <h2>RFIDTS: pengeluaran turun, klik juga turun</h2>
     <p class="dek">Januari–November · angka dalam Rupiah</p>
 
-    <div class="legend"><span><i style="background:var(--c25)"></i>2025</span><span><i style="background:var(--c26)"></i>2026</span></div>
+    <div class="legend"><span><i style="background:var(--c25)"></i>2025</span><span><i style="background:var(--c26)"></i>2026</span><span style="margin-left:auto">Jumlah klik per bulan · angka di atas batang = jumlah klik</span></div>
     <div class="chart">
       <svg viewBox="0 0 840 250" role="img" aria-label="Jumlah klik RFIDTS per bulan, 2025 versus 2026">
         <g id="r-grid"></g><g id="r-bars"></g>
@@ -171,7 +171,7 @@
     <h2>Google: skala lebih kecil, biaya per klik naik</h2>
     <p class="dek">April–November · akun mulai aktif 21 April 2025</p>
 
-    <div class="legend"><span><i style="background:var(--c25)"></i>2025</span><span><i style="background:var(--c26)"></i>2026</span></div>
+    <div class="legend"><span><i style="background:var(--c25)"></i>2025</span><span><i style="background:var(--c26)"></i>2026</span><span style="margin-left:auto">Jumlah klik per bulan · angka di atas batang = jumlah klik</span></div>
     <div class="chart">
       <svg viewBox="0 0 840 250" role="img" aria-label="Jumlah klik Google per bulan, 2025 versus 2026">
         <g id="g-grid"></g><g id="g-bars"></g>
@@ -234,6 +234,10 @@ function draw(gid,gmid,mon,a,b){
     [[a[i],'var(--c25)',-bw-1.5],[b[i],'var(--c26)',1.5]].forEach(([v,c,dx])=>{
       const h=(base-top)*v/max, x=cx+dx;
       g.appendChild(el('rect',{x:x,y:base-h,width:bw,height:h,rx:3,fill:c}));
+      if(v>0){
+        const lt=el('text',{x:x+bw/2,y:base-h-4,'text-anchor':'middle','font-size':10,'fill':'#101820'});
+        lt.textContent=v.toLocaleString('id-ID'); g.appendChild(lt);
+      }
     });
     const t=el('text',{x:cx,y:222,'text-anchor':'middle',class:'lab'});
     t.textContent=m; mg.appendChild(t);
