@@ -53,6 +53,12 @@
   table.funnel{margin-top:26px;border-top:2px solid var(--navy);padding-top:0}
   table.funnel thead th{font-size:10px;letter-spacing:1.2px}
   table.funnel td,table.funnel th{padding:7px 10px}
+  ul.compact-list{margin:0;padding-left:0;list-style:none;font-size:10.5px;line-height:1.45;color:#475569}
+  ul.compact-list li{display:flex;justify-content:space-between;gap:8px;position:relative;padding-left:14px;margin-bottom:5px}
+  ul.compact-list li:last-child{margin-bottom:0}
+  ul.compact-list li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;background:var(--navy);border-radius:50%}
+  ul.compact-list li b{color:var(--ink);font-weight:600}
+  ul.compact-list li span{color:var(--muted);font-size:10px}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
   .card{border:1px solid var(--line);border-top:3px solid var(--navy);padding:18px 18px 20px;border-radius:2px}
   .card .ct{font-size:15px;font-weight:600;margin:0 0 12px;color:var(--navy)}
@@ -290,37 +296,35 @@
     <h2>Rejection &amp; Cancellation List — 19 Prospek</p>
     <p class="dek">WMS — persetujuan penawaran batal pada tahap akhir</p>
 
-    <div style="margin-top:8px">
-      <div class="cards">
-        <div class="card">
-          <p class="ct">1. Harga / Budget (13)</p>
-          <ul style="font-size:11.5px">
-            <li>PT Komponen Futaba Nusapersada — out of budget</li>
-            <li>PT Central Texindo — out of budget</li>
-            <li>Textile One — out of budget</li>
-            <li>PT Multi Sandang Tamajaya — out of budget (gate &amp; printer)</li>
-            <li>PT Jayagiri Indonesia — out of budget</li>
-            <li>PT Diesel One Group — out of budget</li>
-            <li>PT Shoetown Ligung Indonesia — vendor lain lebih murah</li>
-            <li>PT One3 Motoshop — out of budget</li>
-            <li>PT Hi-Cook — out of budget</li>
-            <li>PT NHK Precision Parts Indonesia — out of budget</li>
-            <li>Kanda Fabrics — out of budget</li>
-            <li>PT Beton Elemenindo Perkasa — out of budget</li>
-            <li>PT Exxel Utama — out of budget</li>
-          </ul>
-        </div>
-        <div class="card">
-          <p class="ct">2. Teknis / Proses / Internal (6)</p>
-          <ul style="font-size:11.5px">
-            <li>Indotruck — cancel, fokus perpindahan new site</li>
-            <li>CV Surya Metalindo — part tidak bisa ditangani</li>
-            <li>PT Mugi — tidak ada respon team IT</li>
-            <li>PT Mazuta Group — hold BOD</li>
-            <li>PT Dear Butter — tidak terbuka kondisi gudang</li>
-            <li>PT Barkode — permintaan tidak resmi / tidak ada detail</li>
-          </ul>
-        </div>
+    <div class="cards" style="grid-template-columns:1.7fr 1fr;align-items:start;margin-top:8px">
+      <div class="card">
+        <p class="ct">1. Harga / Budget (13)</p>
+        <ul class="compact-list">
+          <li><b>Komponen Futaba Nusapersada</b><span>out of budget</span></li>
+          <li><b>Central Texindo</b><span>out of budget</span></li>
+          <li><b>Textile One</b><span>out of budget</span></li>
+          <li><b>Multi Sandang Tamajaya</b><span>gate &amp; printer ditanggung</span></li>
+          <li><b>Jayagiri Indonesia</b><span>out of budget</span></li>
+          <li><b>Diesel One Group</b><span>out of budget</span></li>
+          <li><b>Shoetown Ligung Indonesia</b><span>vendor lain lebih murah</span></li>
+          <li><b>One3 Motoshop</b><span>out of budget</span></li>
+          <li><b>Hi-Cook</b><span>out of budget</span></li>
+          <li><b>NHK Precision Parts Indonesia</b><span>out of budget</span></li>
+          <li><b>Kanda Fabrics</b><span>out of budget</span></li>
+          <li><b>Beton Elemenindo Perkasa</b><span>out of budget</span></li>
+          <li><b>Exxel Utama</b><span>out of budget</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="ct">2. Teknis / Proses / Internal (6)</p>
+        <ul class="compact-list">
+          <li><b>Indotruck</b><span>fokus perpindahan new site</span></li>
+          <li><b>Surya Metalindo</b><span>part tidak bisa ditangani</span></li>
+          <li><b>PT Mugi</b><span>tidak ada respon IT</span></li>
+          <li><b>Mazuta Group</b><span>hold BOD</span></li>
+          <li><b>Dear Butter</b><span>tidak terbuka kondisi gudang</span></li>
+          <li><b>Barkode</b><span>permintaan tidak resmi</span></li>
+        </ul>
       </div>
     </div>
 
