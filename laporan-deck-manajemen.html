@@ -7,7 +7,8 @@
 <style>
   :root{
     --ink:#101820; --muted:#5a6572; --line:#d5dbe2; --soft:#f5f7f9;
-    --paper:#fff; --navy:#16324f; --c25:#3168a8; --c26:#c3691e;
+    --paper:#fff; --navy:#00447b; --navy-light:#e6eff6; --yellow:#f3c027; --yellow-dark:#c9990c;
+    --c25:#3168a8; --c26:#c3691e;
     --pos:#1b6e4a; --neg:#a63a32;
   }
   *{box-sizing:border-box}
@@ -52,6 +53,31 @@
   table.funnel{margin-top:26px;border-top:2px solid var(--navy);padding-top:0}
   table.funnel thead th{font-size:10px;letter-spacing:1.2px}
   table.funnel td,table.funnel th{padding:7px 10px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+  .card{border:1px solid var(--line);border-top:3px solid var(--navy);padding:18px 18px 20px;border-radius:2px}
+  .card .ct{font-size:15px;font-weight:600;margin:0 0 12px;color:var(--navy)}
+  .card ul{margin:0;padding-left:0;list-style:none;font-size:13px;line-height:1.6;color:var(--muted)}
+  .card li{position:relative;padding-left:14px;margin-bottom:9px}
+  .card li:last-child{margin-bottom:0}
+  .card li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;background:var(--navy);border-radius:50%}
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    padding:2px 7px;border-radius:3px;margin-right:7px;vertical-align:1px}
+  .tag.done{background:#e7f3ed;color:var(--pos)}
+  .tag.pending{background:#fff6dd;color:var(--yellow-dark)}
+  .tag.opt{background:var(--navy-light);color:var(--navy)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  .prod{border:1px solid var(--line);border-radius:2px;overflow:hidden}
+  .prod .ph{background:var(--navy);color:#fff;padding:11px 16px;display:flex;justify-content:space-between;align-items:center}
+  .prod .ph .pn{font-size:15px;font-weight:600}
+  .prod .ph .pt{font-size:11px;color:var(--yellow);font-weight:700}
+  .prod .pb{padding:15px 16px}
+  .prod .pct{font-size:30px;font-weight:600;color:var(--navy);letter-spacing:-1px;line-height:1}
+  .prod .pl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+  .bar{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin:10px 0 12px}
+  .bar i{display:block;height:100%;background:var(--yellow);border-radius:4px}
+  .prod .pd{font-size:12px;color:var(--muted);line-height:1.6}
+  .alert{border:1px solid #e8c9c5;background:#fdf3f2;border-left:3px solid var(--neg);padding:11px 14px;border-radius:2px;font-size:12.5px;line-height:1.55;color:var(--ink);margin-top:14px}
+  .alert b{color:var(--neg)}
   .rec{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);align-items:start}
   .rec:last-of-type{border-bottom:none}
   .rec .no{font-size:14px;color:var(--muted);font-weight:600;padding-top:2px}
@@ -190,6 +216,72 @@
       </tbody>
     </table>
     <p class="note">Data dari Google Ads (akun 7321364688), periode April–November. Biaya per klik dihitung dari pengeluaran ÷ jumlah klik. Aktivitas Januari–Maret 2026 sangat lemah (praktis nol), lalu pulih April 2026. Tayangan dan klik berkurang tajam sedangkan biaya per klik naik, sehingga efisiensi menurun. Nilai konversi nol di seluruh bulan, sehingga angka konversi tidak dapat dipakai untuk menilai hasil — kesimpulan didasarkan pada pengeluaran, tayangan, dan klik saja, bukan pendapatan atau penjualan.</p>
+  </section>
+
+  <section class="slide">
+    <p class="eyebrow">01 · Marketing</p>
+    <div class="rule"></div>
+    <h2>Agenda rapat: evaluasi marketing</h2>
+    <p class="dek">Kebutuhan data, penyerapan anggaran, strategi, dan aktivitas offline</p>
+
+    <div class="cards">
+      <div class="card">
+        <p class="ct">Data &amp; Penyerapan Anggaran</p>
+        <ul>
+          <li>Identifikasi data yang dibutuhkan untuk evaluasi performa.</li>
+          <li>Perbandingan realisasi penyerapan anggaran terhadap pagu.</li>
+          <li>Hasil &amp; output konkret dari setiap penyerapan anggaran.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="ct">Evaluasi Strategi &amp; Optimasi</p>
+        <ul>
+          <li><span class="tag done">Terlaksana</span>Pemetaan program pemasaran yang sudah berjalan.</li>
+          <li><span class="tag pending">Tertunda</span>Analisis kendala strategi yang belum terlaksana.</li>
+          <li><span class="tag opt">Optimasi</span>Poin perbaikan &amp; akselerasi kampanye ke depan.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="ct">Offline Activity &amp; Funneling</p>
+        <ul>
+          <li>Evaluasi efektivitas kegiatan <strong>KIC &amp; Ngobras</strong> (pending / review).</li>
+          <li>Monitoring konversi leads untuk solusi <strong>Aset &amp; RFID</strong>.</li>
+          <li>Data funnel per produk sudah disajikan di slide ASETA &amp; RFIDTS.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <p class="eyebrow">02 · Sales, Penyelarasan &amp; Masukan</p>
+    <div class="rule"></div>
+    <h2>Pencapaian target &amp; strategi penjualan</h2>
+    <p class="dek">Fokus utama: Aset &amp; WMS</p>
+
+    <div class="split">
+      <div class="prod">
+        <div class="ph"><span class="pn">ASET · Asset Management</span><span class="pt">Target 2026: 1,37 M</span></div>
+        <div class="pb">
+          <div class="pl">Pencapaian aktual</div>
+          <div class="pct">12%</div>
+          <div class="bar"><i style="width:12%"></i></div>
+          <p class="pd">SW: 9 &bull; HW: 15. Sisa target: 88%.<br>Adopsi bertahap <strong>Software → Hardware</strong> untuk menekan hambatan investasi di awal.</p>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="pn">WMS · Warehouse Management</span><span class="pt">Target 2026: 2,18 M</span></div>
+        <div class="pb">
+          <div class="pl">Pencapaian aktual</div>
+          <div class="pct">20%</div>
+          <div class="bar"><i style="width:20%"></i></div>
+          <p class="pd">SW: 1,6 &bull; Onprem: 30 &bull; HW Cons: 20 &bull; Impl: 13. Sisa target: 80%.<br><strong>Tidak turunkan harga</strong> — perketat kualifikasi leads &amp; tonjolkan ROI penghematan selisih stok.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <b>Hambatan utama WMS:</b> penolakan harga → permintaan diskon pada 21 perusahaan (overprice). Fokus kualifikasi ke sektor <strong>manufaktur / logistik menengah–besar</strong> dan perkuat value pitching berbasis ROI.
+    </div>
   </section>
 
   <section class="slide">
