@@ -203,6 +203,30 @@
   </section>
 
   <section class="slide">
+    <p class="eyebrow">Funnel Konversi · 2025 vs 2026</p>
+    <div class="rule"></div>
+    <h2>Visualisasi funnel: ASETA vs RFIDTS</h2>
+    <p class="dek">Di dalam corong: volume 2026 &amp; perubahan dari tahap sebelumnya · Di samping kanan: perbandingan 2025 vs 2026</p>
+
+    <div class="split" style="margin-top:10px;gap:20px">
+      <div class="prod">
+        <div class="ph"><span class="pn">ASETA · Funnel 2026</span><span class="pt">6 tahap</span></div>
+        <div class="pb" style="padding:14px 12px 10px">
+          <svg id="f-aseta" viewBox="0 0 430 420" role="img" aria-label="Visualisasi funnel ASETA 2026 dan perbandingan 2025"></svg>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="pn">RFIDTS · Funnel 2026</span><span class="pt">5 tahap</span></div>
+        <div class="pb" style="padding:14px 12px 10px">
+          <svg id="f-rfidts" viewBox="0 0 430 420" role="img" aria-label="Visualisasi funnel RFIDTS 2026 dan perbandingan 2025"></svg>
+        </div>
+      </div>
+    </div>
+
+    <p class="note">Persentase di dalam corong menghitung perubahan terhadap tahap tepat di atasnya (untuk <strong>Quotation Sent</strong> bernilai positif karena sebagian prospek meminta penawaran langsung tanpa melalui tahap Trial atau Meeting). Garis callout di kanan menunjukkan perbandingan 2026 terhadap 2025 (<code>—</code> bila data 2025 belum tersedia).</p>
+  </section>
+
+  <section class="slide">
     <p class="eyebrow">Google Ads</p>
     <div class="rule"></div>
     <h2>Google: skala lebih kecil, biaya per klik naik</h2>
@@ -461,6 +485,84 @@ draw('g-grid','g-months',mon,
 draw('r-grid','r-months',mon,
   [3091,4023,6949,16216,2698,4436,1581,6544,7808,40172,2778],
   [1694,1581,4080,4151,1539,4086,0,4850,470,2063,0]);
+
+function drawFunnel(svgId, stages){
+  const svg=document.getElementById(svgId);
+  const cx=128, topW=246, botW=116, yStart=18, n=stages.length;
+  const totalH=386, gap=10, tierH=(totalH-(n-1)*gap)/n, ry=6.5;
+  const bodies=['#00447b','#0e558f','#1f68a3','#337bb7','#4b90ca','#67a6dc'];
+  const rims=['#00315a','#083f6d','#144f80','#246194','#3875aa','#4f8bbd'];
+  const xLineEnd=266, xText=274;
+  const fmt=v=>v.toLocaleString('id-ID');
+  const fmtPct=p=>{
+    const r=Math.round(p*10)/10;
+    const s=Math.abs(r).toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+    return r>0?'+'+s:r<0?'−'+s:'0,0%';
+  };
+
+  stages.forEach((st,i)=>{
+    const wTop=topW-(topW-botW)*(i/n);
+    const wBot=topW-(topW-botW)*((i+0.84)/n);
+    const y0=yStart+i*(tierH+gap), y1=y0+tierH;
+    const xL0=cx-wTop/2, xR0=cx+wTop/2, xL1=cx-wBot/2, xR1=cx+wBot/2;
+
+    const dBody=`M ${xL0} ${y0} L ${xL1} ${y1} A ${wBot/2} ${ry*0.75} 0 0 0 ${xR1} ${y1} L ${xR0} ${y0} A ${wTop/2} ${ry} 0 0 1 ${xL0} ${y0} Z`;
+    svg.appendChild(el('path',{d:dBody,fill:bodies[i]}));
+    svg.appendChild(el('ellipse',{cx:cx,cy:y0,rx:wTop/2,ry:ry,fill:rims[i]}));
+
+    const ym=(y0+y1)/2+ry*0.45;
+    const hasStep=i>0;
+    const tName=el('text',{x:cx,y:hasStep?ym-3:ym+4,'text-anchor':'middle','font-size':10.5,'font-weight':600,fill:'#ffffff'});
+    tName.textContent=`${st.label} · ${fmt(st.v26)}`;
+    svg.appendChild(tName);
+
+    if(hasStep){
+      const prev=stages[i-1].v26;
+      const stepPct=(st.v26-prev)/prev*100;
+      const tStep=el('text',{x:cx,y:ym+11,'text-anchor':'middle','font-size':9.5,'font-weight':600,fill:stepPct>0?'#ffe28a':'#dbeafe'});
+      tStep.textContent=`${fmtPct(stepPct)} vs ${stages[i-1].short||stages[i-1].label}`;
+      svg.appendChild(tStep);
+    }
+
+    const xEdge=(xR0+xR1)/2;
+    svg.appendChild(el('line',{x1:xEdge,y1:ym,x2:xLineEnd,y2:ym,stroke:'#8a96a3','stroke-width':1}));
+    svg.appendChild(el('circle',{cx:xEdge,cy:ym,r:2.6,fill:'#101820'}));
+
+    if(st.v25!==null){
+      const yoy=(st.v26-st.v25)/st.v25*100;
+      const col=yoy>=0?'#1b6e4a':'#a63a32';
+      const tYoy=el('text',{x:xText,y:ym-2,'font-size':11.5,'font-weight':700,fill:col});
+      tYoy.textContent=`${fmtPct(yoy)} vs 2025`;
+      svg.appendChild(tYoy);
+      const tSub=el('text',{x:xText,y:ym+12,'font-size':10,fill:'#5a6572'});
+      tSub.textContent=`2025: ${fmt(st.v25)} → ${fmt(st.v26)}`;
+      svg.appendChild(tSub);
+    }else{
+      const tYoy=el('text',{x:xText,y:ym-2,'font-size':11,'font-weight':600,fill:'#5a6572'});
+      tYoy.textContent='vs 2025: —';
+      svg.appendChild(tYoy);
+      const tSub=el('text',{x:xText,y:ym+12,'font-size':10,fill:'#8a96a3'});
+      tSub.textContent=`2026: ${fmt(st.v26)} (tanpa data 2025)`;
+      svg.appendChild(tSub);
+    }
+  });
+}
+
+drawFunnel('f-aseta',[
+  {label:'Lead',v25:2285,v26:1564},
+  {label:'Qualified',v25:351,v26:274},
+  {label:'Meeting',v25:null,v26:70},
+  {label:'Trial',v25:null,v26:20},
+  {label:'Quotation Sent',short:'Quotation',v25:null,v26:47},
+  {label:'Deal',v25:null,v26:10}
+]);
+drawFunnel('f-rfidts',[
+  {label:'Lead',v25:969,v26:1358},
+  {label:'Qualified',v25:161,v26:283},
+  {label:'Meeting',v25:null,v26:63},
+  {label:'Quotation Sent',short:'Quotation',v25:null,v26:65},
+  {label:'Deal',v25:null,v26:7}
+]);
 </script>
 </body>
 </html>
