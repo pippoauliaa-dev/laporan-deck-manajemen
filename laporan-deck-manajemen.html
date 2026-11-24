@@ -236,7 +236,7 @@
       <b>Kuantitas 2025 vs Efektivitas 2026:</b> Secara kuantitas awal, 2025 lebih banyak (total <strong>3.254</strong> Lead vs <strong>2.922</strong> di 2026, terutama pada ASETA: 2.285 vs 1.564). Namun secara efektivitas funneling ke bawah, <strong>2026 lebih unggul dan persentase konversinya lebih besar</strong> di kedua produk — rasio <strong>Lead → Qualified</strong> gabungan naik dari <strong>15,7%</strong> (2025) menjadi <strong>19,1%</strong> (2026, <strong>+3,3 pp</strong>), menghasilkan <strong>557</strong> Qualified vs <strong>512</strong> di 2025.
     </div>
 
-    <p class="note">Persentase di dalam corong menghitung perubahan terhadap tahap tepat di atasnya (untuk <strong>Quotation Sent</strong> bernilai positif karena sebagian prospek meminta penawaran langsung tanpa melalui tahap Trial atau Meeting). Garis callout di kanan menunjukkan perbandingan 2026 terhadap 2025 (<code>—</code> bila data 2025 belum tersedia).</p>
+    <p class="note">Persentase di dalam corong menunjukkan rasio terhadap tahap tepat di atasnya (untuk <strong>Quotation Sent</strong> di atas 100% karena sebagian prospek meminta penawaran langsung tanpa melalui tahap Trial atau Meeting). Garis callout di kanan menunjukkan perbandingan 2026 terhadap 2025 (<code>—</code> bila data 2025 belum tersedia).</p>
   </section>
 
   <section class="slide">
@@ -531,9 +531,10 @@ function drawFunnel(svgId, stages){
 
     if(hasStep){
       const prev=stages[i-1].v26;
-      const stepPct=(st.v26-prev)/prev*100;
-      const tStep=el('text',{x:cx,y:ym+11,'text-anchor':'middle','font-size':9.5,'font-weight':600,fill:stepPct>0?'#ffe28a':'#dbeafe'});
-      tStep.textContent=`${fmtPct(stepPct)} vs ${stages[i-1].short||stages[i-1].label}`;
+      const ratioPct=(st.v26/prev)*100;
+      const fmtR=v=>(Math.round(v*10)/10).toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+      const tStep=el('text',{x:cx,y:ym+11,'text-anchor':'middle','font-size':9.5,'font-weight':600,fill:ratioPct>100?'#ffe28a':'#dbeafe'});
+      tStep.textContent=`${fmtR(ratioPct)} dari ${stages[i-1].short||stages[i-1].label}`;
       svg.appendChild(tStep);
     }
 
