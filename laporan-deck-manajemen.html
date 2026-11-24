@@ -84,6 +84,8 @@
   .prod .pd{font-size:12px;color:var(--muted);line-height:1.6}
   .alert{border:1px solid #e8c9c5;background:#fdf3f2;border-left:3px solid var(--neg);padding:11px 14px;border-radius:2px;font-size:12.5px;line-height:1.55;color:var(--ink);margin-top:14px}
   .alert b{color:var(--neg)}
+  .insight{border:1px solid #c2dfd0;background:#f2faf6;border-left:3px solid var(--pos);padding:11px 14px;border-radius:2px;font-size:12.5px;line-height:1.55;color:var(--ink);margin-top:14px}
+  .insight b{color:var(--pos)}
   .rec{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);align-items:start}
   .rec:last-of-type{border-bottom:none}
   .rec .no{font-size:14px;color:var(--muted);font-weight:600;padding-top:2px}
@@ -206,7 +208,14 @@
     <p class="eyebrow">Funnel Konversi · 2025 vs 2026</p>
     <div class="rule"></div>
     <h2>Visualisasi funnel: ASETA vs RFIDTS</h2>
-    <p class="dek">Di dalam corong: volume 2026 &amp; perubahan dari tahap sebelumnya · Di samping kanan: perbandingan 2025 vs 2026</p>
+    <p class="dek">2025 unggul di kuantitas Lead awal, namun 2026 lebih efektif meloloskan ke tahap Qualified dan ke bawah</p>
+
+    <div class="kpis" style="margin-bottom:16px">
+      <div class="kpi"><div class="k">Total Lead (2026)</div><div class="n">2.922</div><div class="c neg">−10,2% vs 2025 (3.254)</div></div>
+      <div class="kpi"><div class="k">Total Qualified (2026)</div><div class="n">557</div><div class="c pos">+8,8% vs 2025 (512)</div></div>
+      <div class="kpi"><div class="k">Lead → Qualified ASETA</div><div class="n">17,5%</div><div class="c pos">+2,2 pp vs 2025 (15,4%)</div></div>
+      <div class="kpi"><div class="k">Lead → Qualified RFIDTS</div><div class="n">20,8%</div><div class="c pos">+4,2 pp vs 2025 (16,6%)</div></div>
+    </div>
 
     <div class="split" style="margin-top:10px;gap:20px">
       <div class="prod">
@@ -221,6 +230,10 @@
           <svg id="f-rfidts" viewBox="0 0 430 420" role="img" aria-label="Visualisasi funnel RFIDTS 2026 dan perbandingan 2025"></svg>
         </div>
       </div>
+    </div>
+
+    <div class="insight">
+      <b>Kuantitas 2025 vs Efektivitas 2026:</b> Secara kuantitas awal, 2025 lebih banyak (total <strong>3.254</strong> Lead vs <strong>2.922</strong> di 2026, terutama pada ASETA: 2.285 vs 1.564). Namun secara efektivitas funneling ke bawah, <strong>2026 lebih unggul dan persentase konversinya lebih besar</strong> di kedua produk — rasio <strong>Lead → Qualified</strong> gabungan naik dari <strong>15,7%</strong> (2025) menjadi <strong>19,1%</strong> (2026, <strong>+3,3 pp</strong>), menghasilkan <strong>557</strong> Qualified vs <strong>512</strong> di 2025.
     </div>
 
     <p class="note">Persentase di dalam corong menghitung perubahan terhadap tahap tepat di atasnya (untuk <strong>Quotation Sent</strong> bernilai positif karena sebagian prospek meminta penawaran langsung tanpa melalui tahap Trial atau Meeting). Garis callout di kanan menunjukkan perbandingan 2026 terhadap 2025 (<code>—</code> bila data 2025 belum tersedia).</p>
@@ -531,12 +544,20 @@ function drawFunnel(svgId, stages){
     if(st.v25!==null){
       const yoy=(st.v26-st.v25)/st.v25*100;
       const col=yoy>=0?'#1b6e4a':'#a63a32';
-      const tYoy=el('text',{x:xText,y:ym-2,'font-size':11.5,'font-weight':700,fill:col});
+      const hasRate=i>0;
+      const tYoy=el('text',{x:xText,y:hasRate?ym-7:ym-2,'font-size':11.5,'font-weight':700,fill:col});
       tYoy.textContent=`${fmtPct(yoy)} vs 2025`;
       svg.appendChild(tYoy);
-      const tSub=el('text',{x:xText,y:ym+12,'font-size':10,fill:'#5a6572'});
+      const tSub=el('text',{x:xText,y:hasRate?ym+6:ym+12,'font-size':10,fill:'#5a6572'});
       tSub.textContent=`2025: ${fmt(st.v25)} → ${fmt(st.v26)}`;
       svg.appendChild(tSub);
+      if(hasRate){
+        const r25=(st.v25/stages[0].v25)*100, r26=(st.v26/stages[0].v26)*100;
+        const fmtR=v=>v.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+        const tRate=el('text',{x:xText,y:ym+19,'font-size':10,'font-weight':700,fill:'#1b6e4a'});
+        tRate.textContent=`Conv: ${fmtR(r25)} → ${fmtR(r26)}`;
+        svg.appendChild(tRate);
+      }
     }else{
       const tYoy=el('text',{x:xText,y:ym-2,'font-size':11,'font-weight':600,fill:'#5a6572'});
       tYoy.textContent='vs 2025: —';
