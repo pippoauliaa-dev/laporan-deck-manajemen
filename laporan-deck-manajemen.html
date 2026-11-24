@@ -161,7 +161,7 @@
         <tr><td>Meeting</td><td>—</td><td>70</td><td>—</td></tr>
         <tr><td>Trial</td><td>—</td><td>20</td><td>—</td></tr>
         <tr><td>Quotation Sent</td><td>—</td><td>47</td><td>—</td></tr>
-        <tr><td>Deal</td><td>—</td><td>10</td><td>—</td></tr>
+        <tr><td>Deal</td><td>12</td><td>10</td><td class="delta neg">−16,7%</td></tr>
       </tbody>
     </table>
   </section>
@@ -199,7 +199,7 @@
         <tr><td>Qualified</td><td>161</td><td>283</td><td class="delta pos">+75,8%</td></tr>
         <tr><td>Meeting</td><td>—</td><td>63</td><td>—</td></tr>
         <tr><td>Quotation Sent</td><td>—</td><td>65</td><td>—</td></tr>
-        <tr><td>Deal</td><td>—</td><td>7</td><td>—</td></tr>
+        <tr><td>Deal</td><td>2</td><td>7</td><td class="delta pos">+250,0%</td></tr>
       </tbody>
     </table>
   </section>
@@ -233,7 +233,7 @@
     </div>
 
     <div class="insight">
-      <b>Kuantitas 2025 vs Efektivitas 2026:</b> Secara kuantitas awal, 2025 lebih banyak (total <strong>3.254</strong> Lead vs <strong>2.922</strong> di 2026, terutama pada ASETA: 2.285 vs 1.564). Namun secara efektivitas funneling ke bawah, <strong>2026 lebih unggul dan persentase konversinya lebih besar</strong> di kedua produk — rasio <strong>Lead → Qualified</strong> gabungan naik dari <strong>15,7%</strong> (2025) menjadi <strong>19,1%</strong> (2026, <strong>+3,3 pp</strong>), menghasilkan <strong>557</strong> Qualified vs <strong>512</strong> di 2025.
+      <b>Kuantitas 2025 vs Efektivitas 2026:</b> Secara kuantitas awal, 2025 lebih banyak (total <strong>3.254</strong> Lead vs <strong>2.922</strong> di 2026, terutama pada ASETA: 2.285 vs 1.564). Namun secara efektivitas funneling ke bawah, <strong>2026 lebih unggul dan persentase konversinya lebih besar</strong> di kedua produk — rasio <strong>Lead → Qualified</strong> gabungan naik dari <strong>15,7%</strong> (2025) menjadi <strong>19,1%</strong> (2026, <strong>+3,3 pp</strong>), menghasilkan <strong>557</strong> Qualified vs <strong>512</strong> di 2025. Hingga tahap akhir, total <strong>Deal</strong> 2026 juga lebih tinggi (<strong>17</strong> vs <strong>14</strong> di 2025, <strong>+21,4%</strong>) dengan rasio Lead → Deal naik di keduanya (ASETA <strong>0,5% → 0,6%</strong>; RFIDTS <strong>0,2% → 0,5%</strong>).
     </div>
 
     <p class="note">Persentase di dalam corong menunjukkan rasio terhadap tahap tepat di atasnya (untuk <strong>Quotation Sent</strong> di atas 100% karena sebagian prospek meminta penawaran langsung tanpa melalui tahap Trial atau Meeting). Garis callout di kanan menunjukkan perbandingan 2026 terhadap 2025 (<code>—</code> bila data 2025 belum tersedia).</p>
@@ -554,7 +554,7 @@ function drawFunnel(svgId, stages){
       if(hasRate){
         const r25=(st.v25/stages[0].v25)*100, r26=(st.v26/stages[0].v26)*100;
         const fmtR=v=>v.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
-        const tRate=el('text',{x:xText,y:ym+19,'font-size':10,'font-weight':700,fill:'#1b6e4a'});
+        const tRate=el('text',{x:xText,y:ym+19,'font-size':10,'font-weight':700,fill:r26>=r25?'#1b6e4a':'#a63a32'});
         tRate.textContent=`Conv: ${fmtR(r25)} → ${fmtR(r26)}`;
         svg.appendChild(tRate);
       }
@@ -575,14 +575,14 @@ drawFunnel('f-aseta',[
   {label:'Meeting',v25:null,v26:70},
   {label:'Trial',v25:null,v26:20},
   {label:'Quotation Sent',short:'Quotation',v25:null,v26:47},
-  {label:'Deal',v25:null,v26:10}
+  {label:'Deal',v25:12,v26:10}
 ]);
 drawFunnel('f-rfidts',[
   {label:'Lead',v25:969,v26:1358},
   {label:'Qualified',v25:161,v26:283},
   {label:'Meeting',v25:null,v26:63},
   {label:'Quotation Sent',short:'Quotation',v25:null,v26:65},
-  {label:'Deal',v25:null,v26:7}
+  {label:'Deal',v25:2,v26:7}
 ]);
 </script>
 </body>
